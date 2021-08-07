@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>算法优先关系表的构造</title>
+    <style>
+        input{
+            width: 100px;
+            height: 50px;
+            margin-left: 50px;
+            display: inline-block;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+.top-contend{
+            height: 80px;
+            width: 100%;
+            color:skyblue;
+            border-bottom: 1px solid skyblue;
+            font-size: 50px;
+        }
+       h3{
+           margin-top: 6px;
+       }
+        table {
+    width: 550px;
+    height: 250px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+        tr,td{
+            text-align: center;
+           border: 1px solid black;
+    border-collapse: collapse;
+        }
+      li{
+          float: left;
+          list-style: none;
+          margin-left: 30px;
+          margin-top: 10px;
+      }
+        .hide~td{
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="top-contend">算法优先关系表的构造</div>
+<ul>
+    <li style="margin-left: 1px" >
+        <h2>例：</h2>
+<h2>E->E+T|T</h2>
+<h2>T->T*F|F</h2>
+<h2>F->(E)|id</h2>
+<h2>构造该文法的算符优先关系表</h2>
+    </li>
+    <li style="margin-left: 20px;">
+        <h2>方法：</h2>
+        <h3>（1）首先对文法每个非终结符A定义两个集合：</h3>
+<h3>FIRSTVT(A)={b|A=>b...或A=>Bb...,b属于VT，B属于VN}</h3>
+<h3>LASTVT(A)={b|A=>...a或A=>...aB,a属于VT，B属于VN}</h3>
+        <h3>（2）为每个非终结符A计算FIRSTVT(A)和LASTVT(A)</h3>
+        <h3>（3）执行程序</h3>
+<h3>for (每一个产生式A->X1X2...Xn)</h3>
+<h3>for (i=1;i<=n-1;i++)</h3>
+        <h3>{</h3>
+<h3>if(Xi属于VT且Xi+1属于VT)置Xi=Xi+1;</h3>
+<h3>if(i<=n-2且Xi属于VT，Xi+2属于VT，而Xi+1属于VN)置Xi=Xi+2</h3>
+<h3>if(Xi属于VT，Xi+1属于VN)</h3>
+<h3>for(FIRSTVT(Xi+1)中的每个b)置Xi小于b</h3>
+<h3>if(Xi属于VN，Xi+1属于VT)</h3>
+<h3>for(LASTVT(Xi)中的每个a)置a>Xi+1;</h3>
+<h3>}</h3>
+<h3>（4）对FIRSTVT(S)中的所有b,置$小于b; </h3>
+<h3>对LASTVT(s)中的所有a,置a>$；</h3>
+<h3>置$=$(s为文法开始符号) </h3>
+   </li>
+    <li id="father">
+        <input type="button" value="开始手动实验">
+        <input type="button" value="重新开始">
+        <input type="button" value="自动实验">
+    </li>
+    <li style="visibility: hidden;margin-top:10px;" id="excell">
+        <table >
+            <tr>
+                <td></td>
+                <td>FIRSTVT</td>
+                <td>LASTVT</td>
+            </tr>
+            <tr><td>E</td>
+                <td>{*,+,(,id}</td>
+                <td>{*,+,),id}</td>
+            </tr>
+            <tr><td>T</td>
+                <td>{*,(,id}</td>
+                <td>{*,),id}</td>
+            </tr>
+            <tr><td>F</td>
+                <td>{(,id}</td>
+                <td>{),id}</td>
+            </tr>
+        </table>
+    </li>
+    <li style="margin-top: 10px;">
+        <table>
+    <caption>表达式文法的优先关系表</caption>
+    <tr>
+        <td></td>
+        <td>+</td>
+        <td>*</td>
+        <td>id</td>
+        <td>(</td>
+        <td>)</td>
+        <td>$</td>
+    </tr>
+    <tr>
+        <td class="hide">+</td>
+        <td class="one-two"> ></td>
+        <td class="one-one">< </td>
+        <td class="one-one"><</td>
+        <td class="one-one"><</td>
+        <td class="five-three">></td>
+        <td class="seven-two"> ></td>
+    </tr>
+    <tr>
+        <td class="hide">*</td>
+        <td class="one-two"> ></td>
+        <td class="three-two"> ></td>
+        <td class="three-one"> <</td>
+        <td class="three-one"> <</td>
+        <td class="five-three"> ></td>
+        <td class="seven-two"> ></td>
+    </tr>
+    <tr>
+        <td class="hide">id</td>
+        <td class="one-two"> ></td>
+        <td class="three-two"> ></td>
+        <td></td>
+        <td></td>
+        <td class="five-three"> ></td>
+        <td class="seven-two"> ></td>
+    </tr>
+    <tr>
+        <td class="hide">(</td>
+        <td class="five-two"> <</td>
+        <td class="five-two"> <</td>
+        <td class="five-two"> <</td>
+        <td class="five-two"> <</td>
+        <td class="five-one">=</td>
+        <td></td>
+    </tr>
+    <tr><td class="hide">)</td>
+        <td class="one-two"> ></td>
+        <td class="three-two"> ></td>
+        <td></td>
+        <td></td>
+        <td class="five-three"> ></td>
+        <td class="seven-two"> ></td>
+    </tr>
+    <tr><td class="hide">$</td>
+        <td class="seven-one"> <</td>
+        <td class="seven-one"> <</td>
+        <td class="seven-one"> <</td>
+        <td class="seven-one"> <</td>
+        <td></td>
+        <td class="seven-three">=</td>
+    </tr>
+</table>
+    </li>
+</ul>
+<script>
+    var next=document.createElement("input");
+    var far=document.getElementById("father");
+    var begin=document.querySelectorAll("input");
+    var flash=document.querySelectorAll("h3");
+    var show=document.getElementById("excell");
+    var example=document.querySelectorAll("h2");
+     var oneone=document.querySelectorAll(".one-one");
+ var onetwo=document.querySelectorAll(".one-two");
+ var threeone=document.querySelectorAll(".three-one");
+ var threetwo=document.querySelectorAll(".three-two");
+ var fiveone=document.querySelectorAll(".five-one");
+ var fivetwo=document.querySelectorAll(".five-two");
+ var fivethree=document.querySelectorAll(".five-three");
+ var sevenone=document.querySelectorAll(".seven-one");
+ var seventwo=document.querySelectorAll(".seven-two");
+ var seventhree=document.querySelectorAll(".seven-three");
+    var item=0,j=0;
+flash[0].style.backgroundColor="yellow";
+        example[0].style.backgroundColor="red"
+    begin[0].onclick=function () {
+        far.removeChild(begin[0]);
+        next.type="button";
+       next.value="下一步";
+       far.insertBefore(next,begin[1]);
+    };
+function circle(){
+flash[14].style.backgroundColor="white";
+    flash[item].style.backgroundColor="white";
+    flash[item+1].style.backgroundColor="yellow";
+    item++;
+    if(item===3)show.style.cssText="visibility:visible;"
+    if(item===5){example[j].style.backgroundColor="";
+    j++;
+     showtime();
+     cleartime();
+    }
+    if(j===1&&item===11){
+    for(var i=0;i<3;i++)
+  oneone[i].style.cssText="visibility:visible;color:#FF0000"
+}
+    if(j===1&&item===13){
+for(var i=0;i<4;i++)
+  onetwo[i].style.cssText="visibility:visible;color:#00FF00"
+}
+    if(j===3&&item===11){
+for(var i=0;i<2;i++)
+  threeone[i].style.cssText="visibility:visible;color:#0000FF"
+}
+    if(j===3&&item===13){
+for(var i=0;i<3;i++)
+  threetwo[i].style.cssText="visibility:visible;color:saddlebrown"
+}
+    if(j===5&&item===9){
+  fiveone[0].style.cssText="visibility:visible;color:00FFFF"
+}
+    if(j===5&&item===11){
+for(var i=0;i<4;i++)
+  fivetwo[i].style.cssText="visibility:visible;color:#FF00FF"
+}
+    if(j===5&&item===13){
+for(var i=0;i<4;i++)
+  fivethree[i].style.cssText="visibility:visible;color:#006633";
+}
+    if(item===14&&j!==6){item=4;}
+    if(item===15){example[j-3].style.backgroundColor="";
+    example[j-3].innerHTML="<h3>F->(E)|id</h3>";
+    for(var i=0;i<4;i++)
+  sevenone[i].style.cssText="visibility:visible;color:#00FFFF"
+   };
+    if(item===16){
+for(var i=0;i<4;i++)
+  seventwo[i].style.cssText="visibility:visible;color:#FF9900"
+}
+    if(item===17){
+  seventhree[0].style.cssText="visibility:visible;color:#000000"
+}
+if(item===17){alert("构造成功");}
+}
+   next.onclick=function () {
+      circle();
+};
+    function showtime() {
+         if(j===1)example[j].innerHTML="<h3><span style='background-color: red'>E->E+T</span></h3><br><h3><span>E->T</span></h3>";
+        else if(j===2)example[j-1].innerHTML="<h3><span>E->E+T</span></h3><br><h3><span style='background-color: red'>E->T</span></h3>";
+         else if(j===3)example[j-1].innerHTML="<h3><span style='background-color: red'>T->T*F</span></h3><br><h3><span>T->F</span></h3>";
+         else if(j===4)example[j-2].innerHTML="<h3><span>T->T*F</span></h3><br><h3><span style='background-color: red'>T->F</span></h3>";
+         else if(j===5)example[j-2].innerHTML="<h3><span style='background-color: red'>F->(E)</span></h3><br><h3><span>F->id</span></h3>";
+         else if(j===6)example[j-3].innerHTML="<h3><span>F->(E)</span></h3><br><h3><span style='background-color: red'>F->id</span></h3>";
+    }
+   function cleartime() {
+       if(j===3)example[j-2].innerHTML="<h3>E->E+T|T</h3>";
+        else if(j===5)example[j-3].innerHTML="<h3>T->T*F|F</h3>";
+   }
+begin[1].onclick=function () {
+window.location.reload();
+};
+begin[2].onclick=function(){
+var timer=setInterval(circle,1500);
+if(item===17) clearInterval(timer);
+}
+</script>
+</body>
+</html>

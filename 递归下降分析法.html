@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>递归下降分析法</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            float: left;
+            list-style: none;
+            margin-left: 100px;
+        }
+        h3{
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+<div style=" height: 70px;
+            width: 100%;
+            color:skyblue;
+            border-bottom: 1px solid skyblue;
+            font-size: 50px;">递归下降分析法</div>
+<ul>
+    <li>
+<h2>设有文法G[S]：</h2>
+<h2>S->a|^|(T)</h2>
+<h2>T->ST'</h2>
+<h2>T'->,ST'|ε</h2>
+    </li>
+    <li>
+        <h3>写出相应的递归下降分析程序如下：</h3>
+    <h3>main()</h3>
+    <h3>{scaner();</h3>
+    <h3>S();</h3>
+    <h3>if(sym=='$')printf("success");else printf("fail")}</h3>
+    <h3>S(){</h3>
+    <h3>if(sym=='a'||sym=='^')scaner();else if(sym=='('){scaner();</h3>
+    <h3>T();</h3>
+    <h3>if(sym==')')scaner();</h3>
+    <h3>else error();}</h3>
+    <h3>else error();}</h3>
+    <h3>T(){</h3>
+    <h3>S();</h3>
+    <h3>T'();}</h3>
+    <h3>T'(){</h3>
+    <h3>if(sym==','){scaner();</h3>
+    <h3>S();</h3>
+    <h3>T'();}</h3>
+    <h3>else if(sym!=')')error();}</h3>
+    </li>
+    <li><div style="height:50px;width:400px; margin-left:20px;margin-top: 20px ">
+    <input style="height: 50px;width: 250px;" id="scanf" type="text" value="" placeholder="请输入要分析的句子（以$结束）">
+<input style="height: 50px;width: 50px" id="printf" type="button" value="开始">
+</div>
+    </li>
+</ul>
+<script>
+    function test(numberMillis) {
+    var now = new Date();
+    var exitTime = now.getTime() + numberMillis;
+    while (true) {
+        now = new Date();
+        if (now.getTime() > exitTime)
+            return true;
+    }
+}
+    var i=0,item=0,sym,over=0,j=0;
+    var y;
+    var begin=document.getElementById("printf");
+    var flash=document.querySelectorAll("h3");
+function get(){
+       var text=document.querySelector("#scanf").value;
+       y=text.lastIndexOf(')');
+       sym=text.charAt(i);
+       i++;
+   }
+   function SS() {
+   S();
+    function S() {
+       item=4;
+       setTimeout(clearcss,1500);
+       setTimeout(add,1500);
+       test(1500);
+       setTimeout(clearcss,1500);
+       setTimeout(add,1500);
+       setTimeout(s1,3000);
+   }
+   function s1() {
+       if(sym==='a'||sym==='^')
+        {
+           get();
+       if(j===1){
+           item = 12;
+           setTimeout(clearcss,2000);
+       setTimeout(add,2000);
+                 }
+       if(j===2) {setTimeout(clearcss,2000);
+        setTimeout(add,2000);
+           item = 16;
+       }
+       }
+       else if(sym==='(') {
+           setTimeout(clearcss, 1500);
+           setTimeout(add, 1500);
+           setTimeout(get, 1500);
+           setTimeout(T, 3000);
+       }
+       else {
+           item=9;
+           setTimeout(clearcss,1500);
+       setTimeout(add,1500);
+       setTimeout(error,2000)}
+   }
+   }
+function s3(){
+    if(i!==(y+2)){
+        item=16;
+        setTimeout(clearcss,1500);
+       setTimeout(add,1500);
+        setTimeout(T2,3000);}
+    else last();
+
+   }
+   function s2()
+   {
+               item = 7;
+               setTimeout(clearcss,1500);
+               setTimeout(add,1500);
+               get();
+               setTimeout(s3,2000);
+   }
+  function T(){
+       item=10;
+       setTimeout(clearcss,1500);
+       setTimeout(add,1500);
+       test(1500);
+       setTimeout(clearcss,1500);
+       setTimeout(add,1500);
+       setTimeout(t1,3000)
+
+  }
+  function t1() {
+       j=1;
+       SS();
+       setTimeout(T2,6000);
+  }
+  function T2() {
+       item=13;
+       setTimeout(clearcss,1500);
+       setTimeout(add,1500);
+       test(1500);
+       setTimeout(clearcss,1500);
+       setTimeout(add,1500);
+      setTimeout(t3,5000)
+      }
+      function t3() {
+       if(sym===','){
+          get();
+          j=2;
+          setTimeout(clearcss,1500);
+         setTimeout(add,1500);
+         test(1500);
+         setTimeout(t4,3000);
+          }
+      else if (sym!==')'){
+          setTimeout(clearcss,1500);
+          setTimeout(add,1500);
+          test(1500);
+          setTimeout(clearcss,1500);
+          setTimeout(add,1500);
+          test(1500);
+          setTimeout(clearcss,1500);
+          setTimeout(add,1500);
+          test(1500);
+          setTimeout(clearcss,1500);
+          setTimeout(error,3000)}
+      else{
+          setTimeout(clearcss,1500);
+          setTimeout(add,1500);
+          setTimeout(clearcss,1500);
+          setTimeout(add,1500);
+          setTimeout(clearcss,1500);
+          setTimeout(add,1500);
+          setTimeout(s2,3000);
+       }
+}
+function t4() {
+           SS();
+           if(sym!=='(')
+           setTimeout(T2,6000);
+       }
+ function error(){
+            over=1;
+       alert("你输入的单词符号序列不是该文法的一个句子！");
+        window.location.reload();
+ }
+function add() {
+       flash[item+1].style.cssText = "background:yellow;";
+       item++;
+}
+function clearcss(){
+    for(var x=0;x<20;x++)
+        flash[x].style.cssText = "background:white;";
+}
+function fun(){
+    setTimeout(clearcss,1500);
+    setTimeout(add,1500);
+        setTimeout( get,1500);
+        setTimeout(SS,3000);
+    }
+function last(){
+    item=3;
+    setTimeout(clearcss,1500);
+    setTimeout(add,1500);
+    setTimeout(end,2000);
+    setTimeout(clearcss,3000);
+}
+function end(){
+    if (sym ==="$"&&over===0) alert("success");
+            else if(over===1) window.location.reload();
+            else    alert("fail");
+}
+    begin.onclick=function () {
+        setTimeout(add,1500);
+        test(1500);
+        setTimeout(clearcss,1500);
+        setTimeout(add,1500);
+        setTimeout(fun,2000);
+
+    }
+</script>
+</body>
+</html>
